@@ -1,22 +1,29 @@
 classDiagram
+
     Personaje <|-- Mago
     Personaje <|-- Elfo
     Personaje <|-- Enano
-    
+
     Item <|-- Arma
     Item <|-- Ropaje
-    Item <|-- ItemMagico
-    
-    ItemMagico <|-- LibroDeHechizos
+    Item <|-- ElementoMagico
+    Item <|-- LibroDeHechizos
+
     Arma ..|> IAtacable
     Ropaje ..|> IDefendible
-    ItemMagico ..|> IAtacable
-    ItemMagico ..|> IDefendible
-    
+
+    ElementoMagico ..|> IAtacable
+    ElementoMagico ..|> IDefendible
+    ElementoMagico ..|> IItemMagico
+
+    LibroDeHechizos ..|> IAtacable
+    LibroDeHechizos ..|> IDefendible
+    LibroDeHechizos ..|> IItemMagico
+
     Personaje "1" o-- "*" Item : tiene
     LibroDeHechizos "1" *-- "*" Hechizo : contiene
-    
-    class Personaje{
+
+    class Personaje {
         <<abstract>>
         -string nombre
         -int vida
@@ -25,7 +32,7 @@ classDiagram
         -int defensaBase
         -List~Item~ items
         #Personaje(string nombre, int vida, int ataqueBase, int defensaBase)
-        +AgregarItem(Item item)
+        +AgregarItem(Item item) bool
         +QuitarItem(Item item)
         +ObtenerAtaqueTotal() int
         +ObtenerDefensaTotal() int
@@ -35,70 +42,92 @@ classDiagram
         +ObtenerVida() int
         #AumentarAtaqueBase(int cantidad)
         #AumentarDefensaBase(int cantidad)
-        #PuedeUsarItemsMagicos bool
+        #PuedeUsarItemsMagicos() bool
     }
-    
-    class Mago{
+
+    class Mago {
         +Mago(string nombre)
         +Estudiar()
+        #PuedeUsarItemsMagicos() bool
     }
-    
-    class Elfo{
+
+    class Elfo {
         +Elfo(string nombre)
         +CurarA(Personaje objetivo)
+        #PuedeUsarItemsMagicos() bool
     }
-    
-    class Enano{
+
+    class Enano {
         +Enano(string nombre)
+        #PuedeUsarItemsMagicos() bool
     }
-    
-    class Item{
+
+    class Item {
         <<abstract>>
+        -string nombre
     }
-    
-    class IAtacable{
+
+    class IAtacable {
         <<interface>>
         +ObtenerAtaque() int
     }
-    
-    class IDefendible{
+
+    class IDefendible {
         <<interface>>
         +ObtenerDefensa() int
     }
-    
-    class Arma{
+
+    class IItemMagico {
+        <<interface>>
+    }
+
+    class Arma {
         -int valorAtaque
-        +Arma(int valorAtaque)
+        +Arma(string nombre, int valorAtaque)
         +ObtenerAtaque() int
     }
-    
-    class Ropaje{
+
+    class Ropaje {
         -int valorDefensa
-        +Ropaje(int valorDefensa)
+        +Ropaje(string nombre, int valorDefensa)
         +ObtenerDefensa() int
     }
-    
-    class ItemMagico{
-        <<abstract>>
+
+    class ElementoMagico {
         -int valorAtaque
         -int valorDefensa
-        -bool esMagico
+        +ElementoMagico(string nombre, int valorAtaque, int valorDefensa)
         +ObtenerAtaque() int
         +ObtenerDefensa() int
     }
-    
-    class LibroDeHechizos{
+
+    class LibroDeHechizos {
         -List~Hechizo~ hechizos
+        +LibroDeHechizos(string nombre)
         +AgregarHechizo(Hechizo h)
         +QuitarHechizo(Hechizo h)
         +ObtenerAtaque() int
         +ObtenerDefensa() int
     }
-    
-    class Hechizo{
+
+    class Hechizo {
+        <<abstract>>
+        -string nombre
+    }
+
+    Hechizo <|-- HechizoAtaque
+    Hechizo <|-- HechizoDefensa
+    HechizoAtaque ..|> IAtacable
+    HechizoDefensa ..|> IDefendible
+
+    class HechizoAtaque {
         -int valorAtaque
-        -int valorDefensa
-        +Hechizo(int valorAtaque, int valorDefensa)
+        +HechizoAtaque(string nombre, int valorAtaque)
         +ObtenerAtaque() int
+    }
+
+    class HechizoDefensa {
+        -int valorDefensa
+        +HechizoDefensa(string nombre, int valorDefensa)
         +ObtenerDefensa() int
     }
