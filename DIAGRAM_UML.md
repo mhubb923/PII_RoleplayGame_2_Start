@@ -1,7 +1,8 @@
 classDiagram
     Personaje <|-- Mago
-    Personaje <|-- Elfo
+    Personaje <|-- Caballero
     Personaje <|-- Enano
+    Personaje <|-- Arquero
 
     Item <|-- Arma
     Item <|-- Ropaje
@@ -25,7 +26,7 @@ classDiagram
         -int ataqueBase
         -int defensaBase
         -List~Item~ items
-        #Personaje(string nombre, int vida, int ataqueBase, int defensaBase)
+        #Personaje(string nombre, int vida)
         +AgregarItem(Item item)
         +QuitarItem(Item item)
         +ObtenerAtaqueTotal() int
@@ -44,13 +45,16 @@ classDiagram
         +Estudiar()
     }
 
-    class Elfo{
-        +Elfo(string nombre)
-        +CurarA(Personaje objetivo)
+    class Caballero{
+        +Caballero(string nombre)
     }
 
     class Enano{
         +Enano(string nombre)
+    }
+
+    class Arquero{
+        +Arquero(string nombre)
     }
 
     class Item{
