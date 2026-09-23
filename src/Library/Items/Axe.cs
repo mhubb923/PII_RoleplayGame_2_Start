@@ -1,12 +1,9 @@
-namespace Ucu.Poo.RoleplayGame;
-
-public class Axe
+namespace Ucu.Poo.RolePlayGame
 {
-    public int AttackValue 
+    public class Axe : Arma
     {
-        get
+        public Axe() : base("Axe", 25)
         {
-            return 25;
-        } 
+        }
     }
 }
