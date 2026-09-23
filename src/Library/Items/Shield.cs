@@ -1,12 +1,10 @@
-namespace Ucu.Poo.RoleplayGame;
-
-public class Shield
+namespace Ucu.Poo.RolePlayGame
 {
-    public int DefenseValue
+    public class Shield : Ropaje
     {
-        get
+        public Shield(string nombre = "Shield", int valorDefensa = 14) 
+            : base(nombre, valorDefensa)
         {
-            return 14;
         }
     }
 }

@@ -1,11 +1,10 @@
 namespace Ucu.Poo.RolePlayGame
 {
-    public class Staff : Item, IAtacable, IDefendible, IItemMagico
-    {
-        private readonly int valorAtaque;
-        private readonly int valorDefensa;
+   public class ElementoMagico : Item, IAtacable, IDefendible, IItemMagico{
+        private int valorAtaque;
+        private int valorDefensa;
 
-        public Staff(string nombre = "Staff", int valorAtaque = 100, int valorDefensa = 100) 
+        public ElementoMagico(string nombre, int valorAtaque, int valorDefensa) 
             : base(nombre)
         {
             this.valorAtaque = valorAtaque;
@@ -20,6 +19,6 @@ namespace Ucu.Poo.RolePlayGame
         public int ObtenerDefensa()
         {
             return this.valorDefensa;
-        }
-    }
+        } 
+   }
 }
