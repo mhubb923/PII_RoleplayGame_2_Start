@@ -53,5 +53,15 @@ namespace Ucu.Poo.RolePlayGame.Tests
     
             Assert.That(objetivo.ObtenerVida(), Is.EqualTo(100));
         }
+        //Probamos que la vida no pueda disminuir por debajo de 0.
+        [Test]
+        public void RecibirAtaque_DanioMayorAVida_NoBajaDeCero()
+        {
+            PersonajeDePrueba personaje = new PersonajeDePrueba("Gandalf", 100);
+            
+            personaje.RecibirAtaque(150); // Daño superior a los 100 HP
+
+            Assert.That(personaje.ObtenerVida(), Is.EqualTo(0));
+        }
     }
 }
