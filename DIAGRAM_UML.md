@@ -2,22 +2,20 @@ classDiagram
     Personaje <|-- Mago
     Personaje <|-- Caballero
     Personaje <|-- Enano
-    Personaje <|-- Arquero
 
     Item <|-- Arma
     Item <|-- Ropaje
     Item <|-- ItemMagico
-    ItemMagico <|-- LibroDeHechizos
     
-    %% Interfaces
+    ItemMagico <|-- LibroDeHechizos
     Arma ..|> IAtacable
     Ropaje ..|> IDefendible
     ItemMagico ..|> IAtacable
     ItemMagico ..|> IDefendible
-
+    
     Personaje "1" o-- "*" Item : tiene
     LibroDeHechizos "1" *-- "*" Hechizo : contiene
-
+    
     class Personaje{
         <<abstract>>
         -string nombre
@@ -39,50 +37,47 @@ classDiagram
         #AumentarDefensaBase(int cantidad)
         #PuedeUsarItemsMagicos bool
     }
-
+    
     class Mago{
         +Mago(string nombre)
         +Estudiar()
     }
 
-    class Caballero{
-        +Caballero(string nombre)
+    class Elfo{
+        +Elfo(string nombre)
+        +CurarA(Personaje objetivo)
     }
-
+    
     class Enano{
         +Enano(string nombre)
-    }
-
-    class Arquero{
-        +Arquero(string nombre)
     }
 
     class Item{
         <<abstract>>
     }
-
+    
     class IAtacable{
         <<interface>>
         +ObtenerAtaque() int
     }
-
+    
     class IDefendible{
         <<interface>>
         +ObtenerDefensa() int
     }
-
+    
     class Arma{
         -int valorAtaque
         +Arma(int valorAtaque)
         +ObtenerAtaque() int
     }
-
+    
     class Ropaje{
         -int valorDefensa
         +Ropaje(int valorDefensa)
         +ObtenerDefensa() int
     }
-
+    
     class ItemMagico{
         <<abstract>>
         -int valorAtaque
@@ -91,7 +86,7 @@ classDiagram
         +ObtenerAtaque() int
         +ObtenerDefensa() int
     }
-
+    
     class LibroDeHechizos{
         -List~Hechizo~ hechizos
         +AgregarHechizo(Hechizo h)
@@ -99,7 +94,7 @@ classDiagram
         +ObtenerAtaque() int
         +ObtenerDefensa() int
     }
-
+    
     class Hechizo{
         -int valorAtaque
         -int valorDefensa
